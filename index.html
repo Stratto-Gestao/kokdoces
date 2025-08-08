@@ -18,7 +18,6 @@ aside{background:#fff;border-right:1px solid var(--line);padding:18px;position:s
 .brand{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .brand img{width:40px;height:40px;border-radius:12px;object-fit:contain}
 .brand h1{font-size:16px;margin:0}
-.search{display:none}
 .stepper{display:flex;flex-direction:column;gap:8px}
 .navbtn{display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;cursor:pointer;border:1px solid var(--line);background:#fff;font-weight:600;color:#39413D}
 .navbtn:hover{border-color:var(--sec)}
@@ -30,41 +29,52 @@ header.top{display:flex;align-items:center;justify-content:space-between;margin-
 .subtitle{color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
-@media (max-width:1000px){
-  .app{grid-template-columns:1fr}
-  aside{position:static;height:auto}
-  .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
-  .search{display:block;margin:8px 0}
-}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
 .card h3{margin:0 0 8px;font-size:16px}
 label{display:block;font-size:12px;color:var(--muted);margin:6px 0}
-input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--sec);box-shadow:0 0 0 3px rgba(157,184,164,.15)}
 .row{display:flex;gap:10px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:700}
 .btn.primary{background:var(--prim);color:#fff;border-color:transparent}
 .btn.ghost{background:#fff}
 .btn.danger{background:var(--danger);color:#fff;border-color:transparent}
 .btn.small{padding:6px 10px;font-weight:600;border-radius:10px}
+.table-wrap{overflow:auto}
 table{width:100%;border-collapse:collapse;margin-top:8px}
 th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px;white-space:nowrap}
-.table-wrap{overflow:auto}
 .kpi{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.kpi .tile{grid-column:span 3}
-.tile .value{font-size:22px;font-weight:800}
+.kpi .tile{grid-column:span 3;min-width:0}
+.tile .value{font-size:clamp(18px,6vw,22px);font-weight:800;line-height:1.1}
 .muted{color:var(--muted)}
+.tile .muted{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .empty{border:1px dashed var(--line);padding:20px;border-radius:14px;text-align:center;color:var(--muted)}
 .onb{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .onb .step{grid-column:span 4;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
 .step .n{width:26px;height:26px;border-radius:999px;background:var(--sec);color:#fff;display:inline-grid;place-items:center;font-weight:800;margin-bottom:6px}
 .helper{background:linear-gradient(135deg, rgba(234,166,161,.18), rgba(157,184,164,.18));border:1px solid var(--line);border-radius:16px;padding:12px;margin-top:12px}
-.pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{border:1px solid var(--line);padding:4px 8px;border-radius:999px;font-size:12px}
-/* mobile menu */
+/* mobile bar */
 .mobbar{display:none;position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:5}
 .mobrow{display:flex;align-items:center;justify-content:space-between;padding:10px 12px}
-@media (max-width:1000px){.mobbar{display:block}aside{display:none}}
+@media (max-width:1000px){
+  .app{grid-template-columns:1fr}
+  aside{display:none}
+  .mobbar{display:block}
+  .col-8,.col-6,.col-4,.col-3{grid-column:span 12}
+  .kpi .tile{grid-column:span 6}
+  .card{padding:12px}
+  .card h3{font-size:15px}
+  th,td{font-size:13px}
+}
+@media (max-width:420px){
+  .kpi{gap:8px}
+  .kpi .tile{grid-column:span 12}
+  .tile .value{font-size:clamp(16px,5.5vw,20px)}
+  .title{font-size:18px}
+  .subtitle{font-size:12px}
+  /* tabelas rolagem garantida */
+  table{display:block;overflow-x:auto}
+}
 </style>
 </head>
 <body>
@@ -91,7 +101,6 @@ th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-
       <img id="logo" alt="KO'K" src="logo-kok.png"/>
       <h1>KO'K Doces</h1>
     </div>
-    <input class="search" id="searchAll" placeholder="Pesquisar (pedidos, receitas...)" />
     <div class="stepper">
       <div class="navbtn active" data-tab="dashboard">1. Início <span class="badge">Guia</span></div>
       <div class="navbtn" data-tab="insumos">2. Insumos</div>
@@ -103,14 +112,14 @@ th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-
     </div>
     <div class="helper">
       <div style="font-weight:800;margin-bottom:6px">Dica rápida</div>
-      Comece por <b>Insumos</b> ➜ monte a <b>Receita</b> ➜ <b>Precifique</b> ➜ registre <b>Pedidos</b> e <b>Fluxo</b>.
+      Comece por <b>Insumos</b> ➜ Receita ➜ Precificar ➜ Pedidos ➜ Fluxo.
     </div>
   </aside>
   <main>
     <header class="top">
       <div>
         <div class="title">Calculadora & Gestão Financeira</div>
-        <div class="subtitle">Pensada para iniciantes: passo a passo, linguagem simples e exemplos.</div>
+        <div class="subtitle">Passo a passo, linguagem simples e exemplos.</div>
       </div>
       <div class="row">
         <button class="btn ghost" id="btnExportar">Exportar .json</button>
@@ -124,10 +133,9 @@ th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-
     <section id="dashboard" class="view">
       <div class="onb">
         <div class="step"><div class="n">1</div><h3>Cadastre Insumos</h3><div class="muted">Ex.: chocolate (1000 g por R$ 29,90) — o sistema calcula <b>custo por g/ml/un</b>.</div></div>
-        <div class="step"><div class="n">2</div><h3>Monte a Receita</h3><div class="muted">Adicione os insumos usados, informe o <b>rendimento</b> e o <b>tempo</b> (mão de obra).</div></div>
-        <div class="step"><div class="n">3</div><h3>Defina o Preço</h3><div class="muted">Inclua embalagem, taxas e margem. Veja o <b>preço sugerido</b> e o lucro por unidade.</div></div>
+        <div class="step"><div class="n">2</div><h3>Monte a Receita</h3><div class="muted">Adicione os insumos usados, informe o <b>rendimento</b> e o <b>tempo</b>.</div></div>
+        <div class="step"><div class="n">3</div><h3>Defina o Preço</h3><div class="muted">Inclua embalagem, taxas e margem. Veja o <b>preço sugerido</b>.</div></div>
       </div>
-
       <div class="grid" style="margin-top:12px">
         <div class="col-12 card">
           <h3>Resumo do Mês</h3>
@@ -229,12 +237,12 @@ th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-
             <div class="card" style="flex:1;min-width:260px"><div class="muted">Preço sugerido</div><div class="value" id="p_sugerido">R$ 0,00</div><div class="muted" id="p_resumo"></div></div>
             <div class="card" style="flex:1;min-width:260px"><div class="muted">Se usar o preço alvo</div><div class="value" id="p_margemObtida">Margem: 0%</div><div class="muted" id="p_lucroObtido"></div></div>
           </div>
-          <div class="muted" style="margin-top:6px">Fórmula: <b>Preço = Custo Total / (1 - %margem - %taxas - %impostos - %comissão)</b>. Custos fixos, embalagem e custo variável entram antes do markup.</div>
-          <div class="pills" style="margin-top:8px">
-            <span class="pill">Presets: </span>
+          <div class="muted" style="margin-top:6px">Fórmula: <b>Preço = Custo Total / (1 - %margem - %taxas - %impostos - %comissão)</b>.</div>
+          <div class="row" style="margin-top:6px">
+            <span class="muted">Presets:</span>
             <button class="btn small" data-preset="ml">Mercado Livre</button>
             <button class="btn small" data-preset="ifood">iFood</button>
-            <button class="btn small" data-preset="cartao">Cartão (maquininha)</button>
+            <button class="btn small" data-preset="cartao">Cartão</button>
           </div>
         </div>
       </div>
@@ -338,10 +346,9 @@ th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;font-
   </main>
 </div>
 
-<!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// ===== Helpers de formato =====
+// ===== Helpers =====
 const BR = {
   toNumberMoney: (txt) => {
     if(typeof txt !== 'string') return Number(txt||0);
@@ -353,8 +360,7 @@ const BR = {
     let s = txt.replace(/[^0-9,.-]/g,'').replace(',','.');
     const n = parseFloat(s); return isFinite(n) ? n : 0;
   },
-  fmtMoney: (v) => (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),
-  fmtPercent: (v) => (isFinite(v)?v:0).toLocaleString('pt-BR',{maximumFractionDigits:2})+'%'
+  fmtMoney: (v) => (isFinite(v)?v:0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
 };
 function attachMoneyMasks(){
   document.querySelectorAll('input.money').forEach(inp=>{
@@ -367,10 +373,10 @@ function attachPercentMasks(){
   });
 }
 
-// ===== Persistência =====
+// ===== DB =====
 const DB={get:(k,d)=>JSON.parse(localStorage.getItem(k)||JSON.stringify(d)), set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
 
-// ===== Navegação =====
+// ===== Nav =====
 const views=[...document.querySelectorAll('.navbtn')];
 views.forEach(btn=>btn.addEventListener('click',()=>{
   views.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
@@ -389,14 +395,14 @@ document.getElementById('mobSelect').addEventListener('change',(e)=>{
   if(id==='pedidos') renderPedidos();
 });
 
-// ===== Estado =====
+// ===== State =====
 let insumos=DB.get('insumos',[]);
 let receitas=DB.get('receitas',[]);
 let fluxo=DB.get('fluxo',[]);
 let pedidos=DB.get('pedidos',[]);
 let tema=DB.get('tema',{prim:'#EAA6A1',sec:'#9DB8A4',bg:'#FBFBF7',logo:null});
 
-// ===== Tema =====
+// ===== Theme =====
 function applyTheme(){
   document.documentElement.style.setProperty('--prim', tema.prim);
   document.documentElement.style.setProperty('--sec', tema.sec);
@@ -408,7 +414,7 @@ document.getElementById('c_secundaria').oninput=e=>{tema.sec=e.target.value; DB.
 document.getElementById('c_fundo').oninput=e=>{tema.bg=e.target.value; DB.set('tema',tema); applyTheme();}
 document.getElementById('logoInput').addEventListener('change',e=>{const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{tema.logo=r.result; DB.set('tema',tema); applyTheme();}; r.readAsDataURL(f);});
 
-// ===== INSUMOS =====
+// ===== Insumos =====
 const tInsumos=document.getElementById('t_insumos'), emptyInsumos=document.getElementById('emptyInsumos'), tableInsumos=document.getElementById('tableInsumos');
 document.getElementById('btnAddInsumo').onclick=()=>{
   const nome=document.getElementById('i_nome').value.trim();
@@ -437,7 +443,7 @@ function fillInsumosSelect(){
   insumos.forEach(i=>{const o=document.createElement('option'); o.value=i.id; o.textContent=`${i.nome} (${i.un}) – ${BR.fmtMoney(i.custo)}/un`; sel.appendChild(o)});
 }
 
-// ===== RECEITAS =====
+// ===== Receitas =====
 let ingTemp=[]; const tIng=document.getElementById('t_ingredientes');
 document.getElementById('btnAddIngrediente').onclick=()=>{
   if(!insumos.length) return alert('Cadastre insumos primeiro.');
@@ -494,7 +500,7 @@ function fillReceitasSelect(){
   receitas.forEach(r=>{ const o=document.createElement('option'); o.value=r.id; o.textContent=`${r.nome} – custo/un ${BR.fmtMoney(r.custoUn)}`; sel.appendChild(o) });
 }
 
-// ===== PRECIFICAÇÃO =====
+// ===== Precificação =====
 document.getElementById('btnUsarCusto').onclick=()=>{
   const id=document.getElementById('p_receita').value; const r=receitas.find(x=>x.id===id);
   if(!r) return alert('Selecione uma receita.');
@@ -523,19 +529,14 @@ document.getElementById('btnCalcularPreco').onclick=()=>{
     document.getElementById('p_lucroObtido').textContent=`Lucro líquido por un.: ${BR.fmtMoney(lucro)}`;
   }
 };
-// Presets taxas
 document.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{
   const p=b.dataset.preset;
-  if(p==='ml'){ // Mercado Livre (exemplo: 16%)
-    document.getElementById('p_taxas').value='16';
-  } else if(p==='ifood'){ // iFood (ex.: 23%)
-    document.getElementById('p_taxas').value='23';
-  } else if(p==='cartao'){ // Maquininha (ex.: 3.9%)
-    document.getElementById('p_taxas').value='3,9';
-  }
+  if(p==='ml'){ document.getElementById('p_taxas').value='16'; }
+  if(p==='ifood'){ document.getElementById('p_taxas').value='23'; }
+  if(p==='cartao'){ document.getElementById('p_taxas').value='3,9'; }
 }));
 
-// ===== FLUXO =====
+// ===== Fluxo =====
 const tFluxo=document.getElementById('t_fluxo'), emptyFluxo=document.getElementById('emptyFluxo'), tableFluxo=document.getElementById('tableFluxo');
 document.getElementById('btnAddLanc').onclick=()=>{
   const data=document.getElementById('f_data').value || new Date().toISOString().slice(0,10);
@@ -559,7 +560,7 @@ function renderFluxo(){
   });
 }
 
-// ===== PEDIDOS =====
+// ===== Pedidos =====
 const tPedidos=document.getElementById('t_pedidos');
 let pedidosChart=null;
 document.getElementById('btnAddPedido').onclick=()=>{
@@ -608,14 +609,10 @@ function buildPedidosChart(ctx){
         {label:'Qtde Pedidos', data:qty, borderWidth:2, tension:.25},
         {label:'Valor Vendido (R$)', data:val, borderWidth:2, tension:.25, yAxisID:'y1'}
       ]},
-    options:{
-      responsive:true,
-      scales:{ y:{ beginAtZero:true }, y1:{ beginAtZero:true, position:'right' } }
-    }
+    options:{ responsive:true, maintainAspectRatio:false, scales:{ y:{ beginAtZero:true }, y1:{ beginAtZero:true, position:'right' } } }
   });
 }
 function renderPedidos(){
-  // tabela
   const arr=filtrarPedidos().sort((a,b)=>a.data.localeCompare(b.data));
   tPedidos.innerHTML='';
   arr.forEach(p=>{
@@ -623,15 +620,12 @@ function renderPedidos(){
     tr.innerHTML=`<td>${p.data}</td><td>${p.cliente}</td><td>${p.produto}</td><td>${p.status}</td><td>${BR.fmtMoney(p.valor)}</td><td><button class='btn danger' onclick="delPedido('${p.id}')">Excluir</button></td>`;
     tPedidos.appendChild(tr);
   });
-  // kpis
   const k=resumoPedidosMes();
   document.getElementById('pd_k_total').textContent=k.total;
   document.getElementById('pd_k_valor').textContent=BR.fmtMoney(k.valor);
   document.getElementById('pd_k_pend').textContent=k.pend;
   document.getElementById('pd_k_ok').textContent=k.ok;
-  // card do dashboard
   document.getElementById('k_pedidos').textContent=k.total;
-  // chart
   const ctx=document.getElementById('pd_chart').getContext('2d');
   buildPedidosChart(ctx);
 }
@@ -659,9 +653,9 @@ document.getElementById('btnExportar').onclick=()=>{
   const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='kok-financas.json'; a.click(); URL.revokeObjectURL(url);
 };
 document.getElementById('btnExportarCSV').onclick=()=>{
-  let csv='tipo,data,descricao,valor\\n';
-  fluxo.forEach(l=>{ csv+=`fluxo,${l.data},${(l.cat||'')+' '+(l.desc||'')},${l.val}\\n`; });
-  pedidos.forEach(p=>{ csv+=`pedido,${p.data},${p.cliente+' '+p.produto} (${p.status}),${p.valor}\\n`; });
+  let csv='tipo,data,descricao,valor\n';
+  fluxo.forEach(l=>{ csv+=`fluxo,${l.data},${(l.cat||'')+' '+(l.desc||'')},${l.val}\n`; });
+  pedidos.forEach(p=>{ csv+=`pedido,${p.data},${p.cliente+' '+p.produto} (${p.status}),${p.valor}\n`; });
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download='kok-dados.csv'; a.click(); URL.revokeObjectURL(url);
 };
